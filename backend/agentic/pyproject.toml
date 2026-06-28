@@ -1,0 +1,9 @@
+[project]
+name = "anystore-agentic-backend"
+version = "0.1.0"
+description = "AnyStore Microsoft Agent Framework service for Azure AI Foundry orchestration."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

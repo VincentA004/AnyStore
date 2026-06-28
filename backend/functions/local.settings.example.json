@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AGENTIC_BACKEND_URL": "http://localhost:8080",
+    "AGENT_PROXY_SHARED_SECRET": "dev-only-secret"
+  }
+}

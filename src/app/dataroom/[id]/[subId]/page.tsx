@@ -1,0 +1,58 @@
+"use client";
+import { Amplify } from "aws-amplify";
+import { Authenticator as AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { useEffect } from 'react';
+import { Sign } from "crypto";
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/navigation';
+import { get } from 'aws-amplify/api';
+import { put } from 'aws-amplify/api';
+import { fetchAuthSession } from 'aws-amplify/auth';
+import { Button } from "@/components/ui/button";
+import { CircularProgress } from "@mui/material";
+import DataRoom from "../../../pages/DataroomPage";
+import { isDemoBypassEnabled } from "@/lib/demoMode";
+
+export default function Dashboard() {
+  const { user } = useAuthenticator();
+  const demoMode = isDemoBypassEnabled();
+  
+
+  const router = useRouter();
+  useEffect(() => {
+    if (demoMode) return;
+
+    const timeout = setTimeout(() => {
+      if (!user) {
+        router.push("/signin");
+      }
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [user, router]);
+  
+
+  // getRecentSearches();
+  // handleFetchAccess();
+
+  if (demoMode) {
+    return (
+      <AmplifyAuthenticator.Provider>
+        <DataRoom />
+      </AmplifyAuthenticator.Provider>
+    );
+  }
+
+  return (
+    user ? 
+    <AmplifyAuthenticator.Provider>
+      <DataRoom/>
+    </AmplifyAuthenticator.Provider> : 
+    <AmplifyAuthenticator.Provider>
+      <div className="grid h-screen place-items-center">
+        <CircularProgress value={0.5} />
+      </div>
+    </AmplifyAuthenticator.Provider>
+    
+  );
+}
