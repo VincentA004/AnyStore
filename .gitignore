@@ -42,3 +42,7 @@ backend/functions/local.settings.json
 backend/agentic/.venv/
 backend/agentic/__pycache__/
 backend/agentic/.pytest_cache/
+
+backend/agentic/**/__pycache__/
+backend/agentic/**/*.py[cod]
+backend/agentic/.ruff_cache/

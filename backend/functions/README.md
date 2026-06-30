@@ -1,13 +1,13 @@
-# Azure Function Proxy
+# Managed HTTP Proxy
 
-This Azure Functions app is the frontend-facing backend boundary. The Next.js app should call this service through `NEXT_PUBLIC_ANYSTORE_API_URL`.
+This folder currently contains the original Azure Functions HTTP proxy scaffold. The Next.js app should call the deployed proxy through `NEXT_PUBLIC_ANYSTORE_API_URL`; before production, replace or adapt this layer for the final GCP target.
 
 ## Responsibilities
 
 - Expose stable HTTP endpoints for the frontend.
 - Validate request shape and auth context.
 - Forward agent requests to `backend/agentic`.
-- Keep direct Azure AI Foundry details outside the frontend.
+- Keep direct Google ADK, Vertex AI, and model-provider details outside the frontend.
 
 ## Planned Endpoints
 
@@ -15,6 +15,6 @@ This Azure Functions app is the frontend-facing backend boundary. The Next.js ap
 - `POST /api/query`
 - `POST /api/documents/ingest`
 
-## Local Development
+## Deployment Note
 
-Copy `local.settings.example.json` to `local.settings.json` and fill in local values. Do not commit `local.settings.json`.
+We should choose the final GCP proxy target next: Cloud Run gives us the most flexibility; Cloud Functions is lighter if the proxy stays thin. Until then, treat the TypeScript Azure Functions code here as a request/response shape reference, not the final hosting implementation.

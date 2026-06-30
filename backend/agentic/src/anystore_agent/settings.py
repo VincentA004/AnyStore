@@ -1,17 +1,16 @@
-from dataclasses import dataclass
-import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-@dataclass(frozen=True)
-class AgentSettings:
-    foundry_endpoint: str
-    foundry_project: str
-    foundry_agent_id: str
+class AgentSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_file='.env', extra='ignore')
 
-    @classmethod
-    def from_env(cls) -> "AgentSettings":
-        return cls(
-            foundry_endpoint=os.environ.get("AZURE_AI_FOUNDRY_ENDPOINT", ""),
-            foundry_project=os.environ.get("AZURE_AI_FOUNDRY_PROJECT", ""),
-            foundry_agent_id=os.environ.get("AZURE_AI_FOUNDRY_AGENT_ID", ""),
-        )
+    google_cloud_project: str = ''
+    google_cloud_location: str = 'us-central1'
+    google_genai_use_vertexai: bool = True
+    anystore_agent_model: str = 'gemini-2.5-pro'
+    anystore_storage_bucket: str = ''
+    anystore_firestore_database: str = '(default)'
+
+    @property
+    def is_configured(self) -> bool:
+        return bool(self.google_cloud_project)

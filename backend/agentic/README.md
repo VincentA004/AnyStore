@@ -1,13 +1,22 @@
 # Agentic Backend
 
-This service will host the Microsoft Agent Framework runtime and own all interaction with Azure AI Foundry.
+This service hosts the AnyStore Google ADK runtime and owns interaction with GCP AI services.
 
 ## Responsibilities
 
 - Create and run the AnyStore document assistant agent.
-- Connect to Azure AI Foundry agents, models, vector stores, and tools.
+- Connect to Google ADK, Vertex AI/Gemini, vector search, storage, and tool integrations.
 - Execute retrieval, citations, document analysis, and longer-running workflows.
-- Keep model/provider credentials out of the frontend and Azure Function proxy.
+- Keep model/provider credentials out of the frontend and proxy layer.
+
+## Local Development
+
+Install/sync dependencies with uv:
+
+```bash
+uv sync
+uv run uvicorn anystore_agent.app:app --reload --port 8080
+```
 
 ## Planned API Surface
 
@@ -17,4 +26,4 @@ This service will host the Microsoft Agent Framework runtime and own all interac
 
 ## Implementation Notes
 
-The files in `src/anystore_agent` are placeholders for the real Microsoft Agent Framework implementation. Use managed identity in Azure where possible, and keep local secrets in untracked environment files.
+The files in `src/anystore_agent` are placeholders for the real Google ADK implementation. Use Google Application Default Credentials for local development and service accounts/workload identity in deployed GCP environments.

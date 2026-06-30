@@ -1,6 +1,6 @@
 # AnyStore
 
-AnyStore is the consumer-facing Next.js frontend for document workspaces, uploads, search, and Q&A. The repo is set up for Vercel hosting with a managed backend such as Azure Functions or Azure Container Apps.
+AnyStore is the consumer-facing Next.js frontend for document workspaces, uploads, search, and Q&A. The repo is set up for Vercel hosting with a managed backend on GCP, such as Cloud Run or Cloud Functions.
 
 ## Local Development
 
@@ -37,8 +37,8 @@ npm run build
 
 ## Backend Scaffold
 
-The planned Azure backend structure lives in `backend/`:
+The planned GCP backend structure lives in `backend/`:
 
-- `backend/agentic`: Microsoft Agent Framework service for Azure AI Foundry orchestration.
-- `backend/functions`: Azure Functions proxy consumed by the Vercel frontend.
+- `backend/agentic`: Python `uv` project for Google ADK and GCP AI orchestration.
+- `backend/functions`: managed HTTP proxy scaffold consumed by the Vercel frontend.
 - `backend/shared`: request/response contracts and environment examples shared by both layers.
