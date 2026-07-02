@@ -2,14 +2,14 @@
 import { FormEvent, useState, useEffect } from "react";
 import { signIn, signUp, confirmSignUp, resetPassword, confirmResetPassword } from "aws-amplify/auth";
 import { useRouter } from 'next/navigation';
-import { BackgroundBeams } from "../../components/ui/background-beams";
 import { CircularProgress } from "@mui/material";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { GridBackground } from "@/components/ui/spotlight-new";
-import { Spotlight } from "@/components/ui/spotlight-new";
-import logo from "../assets/fynopsis_noBG.png";
-import { Button } from "@/components/ui/gradient-button";
 import { ArrowLeft } from 'lucide-react';
+
+const inputClassName =
+  "mt-1 block w-full h-14 rounded-lg border border-hairline bg-white px-3 text-base text-ink placeholder:text-muted-ink focus:border-ink focus:border-2 focus:outline-none";
+
+const labelClassName = "block text-sm font-medium text-muted-ink";
 
 type AuthMode = 'signIn' | 'signUp' | 'verify' | 'forgotPassword' | 'resetPassword';
 
@@ -44,7 +44,7 @@ export default function SignInDetails() {
 
   if (authStatus === 'configuring') {
     return (
-      <div className="grid h-screen place-items-center bg-darkbg">
+      <div className="grid h-screen place-items-center bg-white">
         <CircularProgress />
       </div>
     );
@@ -195,52 +195,42 @@ export default function SignInDetails() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
-      <Spotlight />
-      <GridBackground />
-
-      <div className="absolute top-4 left-4 z-50">
+    <div className="relative min-h-screen bg-white">
+      <div className="absolute top-6 left-6 z-50">
         <button
           onClick={() => router.push('/')}
-          className="px-4 py-2 text-sm font-medium text-white hover:text-blue-200 transition-colors flex items-center gap-2"
+          className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-surface-soft"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Home
+          Back home
         </button>
       </div>
 
-      <div className="flex min-h-screen items-center justify-center px-4 overflow-hidden">
-        <div className= {`w-full max-w-md space-y-8 rounded-xl bg-gradient-to-br from-gray-900 to-black backdrop-blur-xl p-8 shadow-xl min-h-[500px] overflow-hidden`}>
-          <div>
-            {/* Add the logo image */}
-            <div className="flex justify-center">
-                {mode === 'signIn' && (
-                <div className="rounded-full bg-gray-900 p-1">
-                  <img
-                  src={logo.src}
-                  alt="Fynopsis Logo"
-                  className="h-16 w-auto"
-                  />
-                </div>
-                )}
-            </div>
-
-          </div>
-          <div>
-          <h2 className={` text-center text-3xl font-bold tracking-tight text-white`}>
-          {mode === 'signIn' && 'Sign in to your account'}
-              {mode === 'signUp' && 'Create your account'}
-              {mode === 'verify' && 'Verify your email'}
+      <div className="flex min-h-screen items-center justify-center px-4 py-16">
+        <div className="w-full max-w-md space-y-8 rounded-card border border-hairline bg-white p-8 shadow-float">
+          <div className="space-y-3 text-center">
+            <span className="text-[22px] font-bold tracking-tight text-rausch select-none">
+              AnyStore
+            </span>
+            <h2 className="text-[22px] font-semibold leading-snug text-ink">
+              {mode === 'signIn' && 'Welcome back'}
+              {mode === 'signUp' && 'Make your AnyStore'}
+              {mode === 'verify' && 'Check your email'}
               {mode === 'forgotPassword' && 'Reset your password'}
-              {mode === 'resetPassword' && 'Enter new password'}
+              {mode === 'resetPassword' && 'Pick a new password'}
             </h2>
+            {mode === 'signIn' && (
+              <p className="text-sm text-muted-ink">
+                Everything you dropped in is right where you left it.
+              </p>
+            )}
           </div>
-          <form className=" space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-4 rounded-md shadow-sm">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-4">
               {(mode === 'signIn' || mode === 'signUp' || mode === 'forgotPassword') && (
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-white">
-                    Email address
+                  <label htmlFor="email" className={labelClassName}>
+                    Email
                   </label>
                   <input
                     id="email"
@@ -248,7 +238,7 @@ export default function SignInDetails() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className={inputClassName}
                   />
                 </div>
               )}
@@ -256,27 +246,27 @@ export default function SignInDetails() {
               {mode === 'signUp' && (
                 <>
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-white">
-                      First Name
+                    <label htmlFor="firstName" className={labelClassName}>
+                      First name
                     </label>
                     <input
                       id="firstName"
                       name="firstName"
                       type="text"
                       required
-                      className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className={inputClassName}
                     />
                   </div>
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-white">
-                      Last Name
+                    <label htmlFor="lastName" className={labelClassName}>
+                      Last name
                     </label>
                     <input
                       id="lastName"
                       name="lastName"
                       type="text"
                       required
-                      className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className={inputClassName}
                     />
                   </div>
                 </>
@@ -284,22 +274,22 @@ export default function SignInDetails() {
 
               {(mode === 'verify' || mode === 'resetPassword') && (
                 <div>
-                  <label htmlFor="code" className="block text-sm font-medium text-white">
-                    Verification Code
+                  <label htmlFor="code" className={labelClassName}>
+                    Verification code
                   </label>
                   <input
                     id="code"
                     name="code"
                     type="text"
                     required
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className={inputClassName}
                   />
                 </div>
               )}
 
               {(mode === 'signIn' || mode === 'signUp' || mode === 'resetPassword') && (
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-white">
+                  <label htmlFor="password" className={labelClassName}>
                     Password
                   </label>
                   <input
@@ -308,15 +298,15 @@ export default function SignInDetails() {
                     type="password"
                     autoComplete={mode === 'signIn' ? "current-password" : "new-password"}
                     required
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className={inputClassName}
                   />
                 </div>
               )}
 
               {mode === 'signUp' && (
                 <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-white">
-                    Confirm Password
+                  <label htmlFor="confirmPassword" className={labelClassName}>
+                    Confirm password
                   </label>
                   <input
                     id="confirmPassword"
@@ -324,44 +314,46 @@ export default function SignInDetails() {
                     type="password"
                     autoComplete="new-password"
                     required
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white/5 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className={inputClassName}
                   />
                 </div>
               )}
             </div>
 
             {error && (
-              <div className={`rounded-md ${error.startsWith('✓') ? 'bg-green-900/50 border border-green-700' : 'bg-red-900/50 border border-red-700'} p-4`}>
-                <div className={`text-sm ${error.startsWith('✓') ? 'text-green-400' : 'text-red-400'}`}>{error}</div>
+              <div className={`rounded-lg border p-4 ${error.startsWith('✓') ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}`}>
+                <div className={`text-sm ${error.startsWith('✓') ? 'text-green-700' : 'text-[#c13515]'}`}>{error}</div>
               </div>
             )}
 
             <div className="flex flex-col space-y-4">
-              <Button
-              className = "dark:text-gray-200 text-gray-200 w-full"
+              <button
+                type="submit"
+                disabled={loading}
+                className="h-12 w-full rounded-lg bg-rausch text-base font-medium text-white transition-colors hover:bg-rausch-active active:bg-rausch-active disabled:bg-rausch-disabled"
               >
-                {loading ? "Processing..." : (
+                {loading ? "One sec..." : (
                   mode === 'signIn' ? "Sign in" :
                     mode === 'signUp' ? "Sign up" :
                       mode === 'verify' ? "Verify email" :
                         mode === 'forgotPassword' ? "Send reset link" :
                           "Reset password"
                 )}
-              </Button>
+              </button>
 
               {mode === 'signIn' && (
                 <div className="flex justify-between text-sm">
                   <button
                     type="button"
                     onClick={() => setMode('signUp')}
-                    className="text-indigo-300 hover:text-indigo-400"
+                    className="font-medium text-ink underline-offset-4 hover:underline"
                   >
                     Create an account
                   </button>
                   <button
                     type="button"
                     onClick={() => setMode('forgotPassword')}
-                    className="text-indigo-300 hover:text-indigo-400"
+                    className="text-muted-ink underline-offset-4 hover:text-ink hover:underline"
                   >
                     Forgot your password?
                   </button>
@@ -372,7 +364,7 @@ export default function SignInDetails() {
                 <button
                   type="button"
                   onClick={() => setMode('signIn')}
-                  className="text-sm text-indigo-300 hover:text-indigo-400"
+                  className="text-sm text-muted-ink underline-offset-4 hover:text-ink hover:underline"
                 >
                   Back to sign in
                 </button>

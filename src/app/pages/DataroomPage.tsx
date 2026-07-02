@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import logo from './../assets/fynopsis_noBG.png'
 import React, { useState, useEffect, useRef } from "react"
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Clipboard, LucideIcon, Activity, Table, Database, ChartPie, HelpCircle } from "lucide-react";
@@ -358,7 +357,7 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('color-theme') === 'dark';
     }
-    return true;
+    return false;
   });
 
   // Modify fetchSearchableFiles to accept dataroomId
@@ -645,35 +644,29 @@ export default function Home() {
 
   // Return the main JSX structure
   return (
-    <div className="relative h-screen w-full flex flex-row sans-serif">
+    <div className="relative h-screen w-full flex flex-row sans-serif bg-white dark:bg-darkbg">
       {/* Sidebar */}
-      <div className="w-20 bg-slate-900 h-full flex flex-col items-center justify-between pt-4 pb-6">
-        {/* Add the logo back here */}
+      <div className="w-20 bg-white border-r border-hairline dark:bg-slate-900 dark:border-gray-800 h-full flex flex-col items-center justify-between pt-4 pb-6">
         <div className="flex items-center flex-col">
-          <img
-            src={logo.src}
-            alt="logo"
-            className="h-14 w-auto mb-8 cursor-pointer"
+          {/* AnyStore wordmark */}
+          <button
+            type="button"
+            title="AnyStore home"
+            aria-label="AnyStore home"
+            className="mb-8 mt-2 flex h-12 w-12 cursor-pointer items-center justify-center rounded-card bg-rausch text-xl font-bold text-white transition-colors hover:bg-rausch-active"
             onClick={() => router.push('/dashboard')}
-          />
+          >
+            A
+          </button>
           {/* Tab Icons */}
           <div className="relative flex flex-col items-center">
-            {/* {activeTab !== null && activeTab < filteredTabs.length && ( // Add bounds check
-              <div
-                className={`absolute left-0 w-full bg-blue-300 rounded-xl ${shouldAnimate ? 'transition-all duration-300 ease-in-out' : 'transition-none'} z-20`}
-                style={{
-                  top: `${tabRefs.current[activeTab]?.offsetTop || 0}px`,
-                  height: `${tabRefs.current[activeTab]?.offsetHeight || 0}px`
-                }}
-              />
-            )} */}
             {filteredTabs.map((tab, index) => (
               <div
                 key={tab.label}
                 ref={(el) => { tabRefs.current[index] = el }}
-                className={`relative z-30 p-2 mb-4 cursor-pointer rounded-lg ${  activeTab === index 
-                  ? 'bg-blue-300 text-slate-900' 
-                  : 'text-white'}`}
+                className={`relative z-30 p-2 mb-4 cursor-pointer rounded-lg ${  activeTab === index
+                  ? 'bg-surface-strong text-ink dark:bg-slate-700 dark:text-white'
+                  : 'text-muted-ink hover:bg-surface-soft dark:text-gray-400 dark:hover:bg-slate-800'}`}
                 onClick={() => handleTabClick(index)}
               >
                 <tab.icon size={24} />
@@ -690,13 +683,13 @@ export default function Home() {
         }}>
           <DialogContent className="dark:bg-darkbg outline-none border-none">
             <DialogHeader>
-              <DialogTitle className='dark:text-white'>Share Library</DialogTitle>
+              <DialogTitle className='text-ink dark:text-white'>Share this space</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <Input
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="Enter user email"
+                placeholder="Their email address"
                 type="email"
                 className='outline-none select-none dark:bg-darkbg dark:text-white'
               />
@@ -732,7 +725,7 @@ export default function Home() {
                         <div>
                           <Button
                             disabled
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                            className=""
                           >
                             Share
                           </Button>
@@ -748,7 +741,6 @@ export default function Home() {
                   <Button
                     onClick={handleShareDataroom}
                     disabled={!userEmail.trim() || isSharing}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     {isSharing ? (
                       <span className="flex items-center gap-2">
@@ -776,26 +768,25 @@ export default function Home() {
               </Button>
             )}
           <Popover>
-            <PopoverTrigger className='bg-sky-600 h-10 aspect-square rounded-full flex items-center justify-center text-white'>
+            <PopoverTrigger className='bg-ink h-10 aspect-square rounded-full flex items-center justify-center text-white text-sm font-medium'>
               {userAttributes?.given_name && userAttributes?.family_name
                 ? (givenName[0] + familyName[0]).toUpperCase()
                 : 'U'}
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-48 p-0 rounded-card border-hairline shadow-float">
               <button
                 onClick={signOut}
-                className="flex items-center space-x-2 px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-sm"
+                className="flex items-center gap-2 px-4 py-3 text-ink hover:bg-surface-soft w-full text-sm rounded-t-card"
               >
                 <LogOut size={14} />
-                <span>Logout</span>
+                <span>Log out</span>
               </button>
-              <Separator orientation="horizontal" />
+              <Separator orientation="horizontal" className="bg-hairline-soft h-px" />
               <button
                 onClick={toggleDarkMode}
-                className="flex items-center space-x-2 px-4 py-2 text-red-500 hover:bg-gray-100 w-full text-sm gap-2"
+                className="flex items-center gap-2 px-4 py-3 text-ink hover:bg-surface-soft w-full text-sm rounded-b-card"
               >
-                {isDarkMode ? '🌙' : '☀️'}
-                {isDarkMode ? <span className="text-black">Dark</span> : <span className="text-black">Light</span>}
+                {isDarkMode ? 'Switch to light' : 'Switch to dark'}
               </button>
             </PopoverContent>
           </Popover>

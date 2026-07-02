@@ -32,6 +32,21 @@ const config = {
   	extend: {
   		colors: {
 		'darkbg': '#000E18',
+		rausch: {
+			DEFAULT: '#ff385c',
+			active: '#e00b41',
+			disabled: '#ffd1da'
+		},
+		ink: '#222222',
+		canvas: '#ffffff',
+		hairline: {
+			DEFAULT: '#dddddd',
+			soft: '#ebebeb',
+			strong: '#c1c1c1'
+		},
+		'muted-ink': '#6a6a6a',
+		'surface-soft': '#f7f7f7',
+		'surface-strong': '#f2f2f2',
         backgroundImage: {
           'gradient-border': 'linear-gradient(white, white), linear-gradient(to bottom, rgba(255, 255, 255, 0.3), #0000ff)'
         },
@@ -73,7 +88,12 @@ const config = {
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			sm: 'calc(var(--radius) - 4px)',
+  			card: '14px',
+  			soft: '20px'
+  		},
+  		boxShadow: {
+  			float: 'rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0'
   		},
   		keyframes: {
 			'progress-slide': {
@@ -200,11 +220,10 @@ const config = {
   				'var(--font-cormorant)'
   			],
   			poppins: [
-  				'Poppins',
-  				'sans-serif'
+  				'var(--font-poppins)'
   			],
   			sans: [
-  				'var(--font-poppins)'
+  				'var(--font-system)'
   			]
   		},
   		dropShadow: {

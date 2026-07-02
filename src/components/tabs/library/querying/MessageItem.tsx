@@ -17,10 +17,7 @@ import { Sha256 } from '@aws-crypto/sha256-js';
 import { SignatureV4 } from '@aws-sdk/signature-v4';
 import { Credentials } from '@aws-sdk/types';
 import { TbH1 } from 'react-icons/tb';
-import logo from './../app/assets/fynopsis_noBG.png'
 import '../../../../components/temp.css';
-import loadingAnimation from './../../../../app/assets/fynopsis_animated.svg'
-import staticImage from './../../../../app/assets/fynopsis_static.svg'
 import { Separator } from '../../../ui/separator';
 import { usePathname } from 'next/navigation';
 import {
@@ -390,7 +387,7 @@ export const MessageItem = memo<MessageItemProps>(({
 
                                                                                         {Object.keys(message.subSources).length > 2 && (
                                                                                             <div className="shrink-0 text-xs text-slate-500 dark:text-slate-400 mt-2">
-                                                                                                +{Object.keys(message.subSources).length - 2} more sources
+                                                                                                +{Object.keys(message.subSources).length - 2} more
                                                                                             </div>
                                                                                         )}
                                                                                     </ScrollArea>
@@ -448,7 +445,7 @@ export const MessageItem = memo<MessageItemProps>(({
                                                                         {batch.sources && Object.keys(batch.sources).length > 0 ? (
                                                                             <div className="space-y-2 mt-2">
                                                                                 <div className="text-xs text-slate-600 dark:text-slate-400 mb-2">
-                                                                                    Sources found for this step:
+                                                                                    Found in these while working on this step:
                                                                                 </div>
                                                                                 <ScrollArea className="w-full">
                                                                                     <div className="flex flex-wrap gap-2 pb-1">

@@ -17,10 +17,8 @@ import { Sha256 } from '@aws-crypto/sha256-js';
 import { SignatureV4 } from '@aws-sdk/signature-v4';
 import { Credentials } from '@aws-sdk/types';
 import { TbH1 } from 'react-icons/tb';
-import logo from './../app/assets/fynopsis_noBG.png'
+import { Sparkles } from 'lucide-react';
 import '../../../../components/temp.css';
-import loadingAnimation from './../../../../app/assets/fynopsis_animated.svg'
-import staticImage from './../../../../app/assets/fynopsis_static.svg'
 import { Separator } from '../../../ui/separator';
 import { usePathname } from 'next/navigation';
 import {
@@ -1129,7 +1127,7 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
     const SourcesList: React.FC<{ sources: Record<string, any> }> = ({ sources }) => {
         return (
             <div className="mt-4">
-                <h3 className="text-sm font-semibold mb-2 dark:text-white">Sources</h3>
+                <h3 className="text-sm font-semibold mb-2 text-ink dark:text-white">Found in</h3>
                 <div className="flex flex-wrap gap-2">
                     {Object.entries(sources).map(([key, value], index) => (
                         <Card
@@ -1180,14 +1178,10 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
 
     const renderAnswerHeader = () => (
         <div className='flex flex-row gap-2 items-center mb-3'>
-            <object
-                type="image/svg+xml"
-                data={isAnswerLoading ? loadingAnimation.src : staticImage.src}
-                className="h-6 w-6"
-            >
-                svg-animation
-            </object>
-            <h1 className='dark:text-white font-semibold'>Answer</h1>
+            <Sparkles
+                className={`h-5 w-5 text-rausch ${isAnswerLoading ? 'animate-pulse' : ''}`}
+            />
+            <h1 className='text-ink dark:text-white font-semibold'>Answer</h1>
         </div>
     );
 
@@ -1351,7 +1345,7 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                                         className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                                     >
                                         <ArrowUp className="h-4 w-4" />
-                                        Retry last query
+                                        Ask that again
                                     </Button>
                                 </div>
                             )
@@ -1450,12 +1444,12 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                         <div>
                             <h4 className="text-sm font-medium flex items-center gap-2 mb-2 dark:text-white">
                                 <User className="h-4 w-4" />
-                                Upload Information
+                                Added
                             </h4>
                             <div className="space-y-2">
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs text-gray-500 dark:text-gray-400 min-w-[80px]">
-                                        Uploaded By:
+                                        Added by:
                                     </span>
                                     <span className="text-xs text-gray-700 dark:text-gray-300">
                                         {selectedFile.uploadedBy || 'Unknown'}
@@ -1463,7 +1457,7 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs text-gray-500 dark:text-gray-400 min-w-[80px]">
-                                        Upload Date:
+                                        Added on:
                                     </span>
                                     <span className="text-xs text-gray-700 dark:text-gray-300">
                                         {new Date(selectedFile.lastModified).toLocaleDateString('en-US', {
@@ -1481,7 +1475,7 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                             <div>
                                 <h4 className="text-sm font-medium flex items-center gap-2 mb-2 dark:text-white">
                                     <Tags className="h-4 w-4" />
-                                    Document Tags
+                                    Tags
                                 </h4>
                                 <TagDisplay tags={selectedFile.tags} />
                             </div>
@@ -1496,7 +1490,7 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                             <div className="px-3 py-2 text-xs text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-md">
                                 {selectedFile.summary ?
                                     decodeUnicodeEscapes(selectedFile.summary?.slice(1, -1)) :
-                                    'No summary available'
+                                    'No summary yet'
                                 }
                             </div>
                         </div>
@@ -1510,10 +1504,10 @@ const DetailSection: React.FC<DetailsSectionProps> = ({
                             <BadgeInfo className="h-6 w-6 mr-2" />
                         </div>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            No file has been selected
+                            Nothing picked yet
                         </p>
                         <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                            Select a file to view its details
+                            Pick something to see its details
                         </p>
                     </div>
                 )}

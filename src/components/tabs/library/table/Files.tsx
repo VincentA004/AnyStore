@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../app/assets/fynopsis_noBG.png'
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import TreeFolder from '../../../Folder/Tree';
 import {

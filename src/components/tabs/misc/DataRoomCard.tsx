@@ -180,27 +180,27 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
 
   return (
     <>
-      <div 
-        className={`bg-white dark:bg-transparent shadow-md overflow-hidden 
-        ${isDataroomReady ? 'cursor-pointer hover:shadow-lg dark:hover:bg-slate-900' : 'cursor-default opacity-75'} 
-        transition-all duration-300 w-full relative group border-b border-gray-200 dark:border-gray-700`} 
+      <div
+        className={`bg-white dark:bg-slate-900 overflow-hidden rounded-card border border-hairline dark:border-gray-700
+        ${isDataroomReady ? 'cursor-pointer hover:shadow-float' : 'cursor-default opacity-75'}
+        transition-shadow duration-300 w-full relative group`}
         onClick={handleCardClick}
       >
         <div onClick={handleCardClick} className="p-6">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h2>
+            <h2 className="text-base font-semibold text-ink dark:text-white">{title}</h2>
           </div>
-          
+
           {(!isDataroomReady && !isFailed) && (
             <div className="flex items-center text-sm text-amber-600 dark:text-amber-400 mb-2">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               <span>Setting up your space...</span>
             </div>
           )}
-          
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+
+          <div className="flex items-center text-sm text-muted-ink dark:text-gray-400">
             <Clock className="mr-2 h-4 w-4" />
-            <span>Last Opened: {lastOpened}</span>
+            <span>Last opened {lastOpened}</span>
           </div>
         </div>
 
@@ -297,9 +297,9 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="z-50">
           <DialogHeader>
-            <DialogTitle>Delete Library</DialogTitle>
+            <DialogTitle>Delete this space</DialogTitle>
           </DialogHeader>
-          <p>Are you sure you want to delete this library? This action cannot be undone.</p>
+          <p>Are you sure you want to delete this space? Everything in it goes too, and this can&apos;t be undone.</p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)} disabled={isDeleting}>
               Cancel
@@ -324,9 +324,9 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
       <Dialog open={isLeaveDialogOpen} onOpenChange={setIsLeaveDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Leave Library</DialogTitle>
+            <DialogTitle>Leave this space</DialogTitle>
           </DialogHeader>
-          <p>Are you sure you want to leave this library?</p>
+          <p>Are you sure you want to leave this space?</p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsLeaveDialogOpen(false)}>Cancel</Button>
             <Button variant="default" onClick={handleLeave}>Leave</Button>
@@ -337,7 +337,7 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
       <Dialog open={isRenameDialogOpen} onOpenChange={setIsRenameDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Rename Library</DialogTitle>
+            <DialogTitle>Rename this space</DialogTitle>
           </DialogHeader>
           <div className="py-4">
             <Input
@@ -357,10 +357,10 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
       <Dialog open={isRetryDialogOpen} onOpenChange={setIsRetryDialogOpen}>
         <DialogContent className="dark:bg-darkbg dark:text-white border-none">
           <DialogHeader>
-            <DialogTitle>Retry Setup</DialogTitle>
+            <DialogTitle>Try setup again</DialogTitle>
           </DialogHeader>
           <p className="text-sm mb-4 dark:text-slate-300">
-            This will delete the failed library and create a new one with the same name. Are you sure you want to proceed?
+            This will remove the space that failed to set up and make a fresh one with the same name. Sound good?
           </p>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsRetryDialogOpen(false)} disabled={isRetrying}>
@@ -386,7 +386,7 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
       <Dialog open={isUsersDialogOpen} onOpenChange={setIsUsersDialogOpen}>
         <DialogContent className="dark:bg-slate-900 dark:text-gray-200 dark:border-none">
           <DialogHeader>
-            <DialogTitle>Library Members</DialogTitle>
+            <DialogTitle>Who&apos;s in this space</DialogTitle>
           </DialogHeader>
           <div className="py-4">
             {users && users.length > 0 ? (
@@ -404,7 +404,7 @@ const DataRoomCard: React.FC<DataRoomCardProps> = ({
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500 dark:text-gray-400">No members to display</p>
+              <p className="text-muted-ink dark:text-gray-400">Just you so far</p>
             )}
           </div>
           <DialogFooter>
